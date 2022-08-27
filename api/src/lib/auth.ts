@@ -21,7 +21,7 @@ import { db } from './db'
 export const getCurrentUser = async (session) => {
   return await db.user.findUnique({
     where: { id: session.id },
-    select: { id: true },
+    select: { id: true, email: true },
   })
 }
 
@@ -99,7 +99,7 @@ export const hasRole = (roles: AllowedRoles): boolean => {
  */
 export const requireAuth = ({ roles }: { roles: AllowedRoles }) => {
   if (!isAuthenticated()) {
-    throw new AuthenticationError("You don't have permission to do that.")
+    throw new AuthenticationError("Slow your role, homie. You don't have permission to do that! 🙈")
   }
 
   if (roles && !hasRole(roles)) {
